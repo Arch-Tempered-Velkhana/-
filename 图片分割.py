@@ -11,27 +11,26 @@ import os
 tk = tkinter.Tk()
 
 
-def output(wpx, hpx, filenames, output_folder):
+def output(wpx, hpx, filenames, output_folder, px=128):
     if not filenames:
         print('end\n')
         return
     if not output_folder:
         print('end\n')
         return
-
     for ui in filenames:
         img = Img.open(ui)
         if img.size[0] / wpx == img.size[1] / hpx:
-            pic = img.resize((wpx * 128, hpx * 128))
+            pic = img.resize((wpx * px, hpx * px))
         else:
             if int(wpx / img.size[0] * img.size[1]) < hpx:
-                bg_cut_px = int((hpx * 128 - int(wpx * 128 / img.size[0] * img.size[1])) / 2)
-                pic = img.resize((int(hpx * 128 / img.size[1] * img.size[0]), hpx * 128)).crop(
-                    (0 + bg_cut_px, 0, wpx * 128 + bg_cut_px, hpx * 128))
+                bg_cut_px = int((hpx * px - int(wpx * px / img.size[0] * img.size[1])) / 2)
+                pic = img.resize((int(hpx * px / img.size[1] * img.size[0]), hpx * px)).crop(
+                    (0 + bg_cut_px, 0, wpx * px + bg_cut_px, hpx * px))
             else:
-                bg_cut_px = int((wpx * 128 - int(hpx * 128 / img.size[1] * img.size[0])) / 2)
-                pic = img.resize((wpx * 128, int(wpx * 128 / img.size[0] * img.size[1]))).crop(
-                    (0, 0 + bg_cut_px, wpx * 128, hpx * 128 + bg_cut_px))
+                bg_cut_px = int((wpx * px - int(hpx * px / img.size[1] * img.size[0])) / 2)
+                pic = img.resize((wpx * px, int(wpx * px / img.size[0] * img.size[1]))).crop(
+                    (0, 0 + bg_cut_px, wpx * px, hpx * px + bg_cut_px))
         img.close()
         folder_name = '{0}/{1}'.format(output_folder, os.path.splitext(ui)[0].split('/')[-1])
         s = 0
@@ -41,7 +40,7 @@ def output(wpx, hpx, filenames, output_folder):
         os.mkdir(folder_name)
         for i in range(wpx):
             for j in range(hpx):
-                pic.crop((i * 128, j * 128, (i + 1) * 128, (j + 1) * 128)).save(
+                pic.crop((i * px, j * px, (i + 1) * px, (j + 1) * px)).save(
                     '{0}/{1}_{2}.png'.format(folder_name, j, i))
     print('end\n')
 
