@@ -4,11 +4,8 @@
 日期：2022-07-18
 时间：18:30
 """
-import tkinter
-from tkinter.filedialog import askopenfilenames, askdirectory
 from PIL import Image as Img
 import os
-tk = tkinter.Tk()
 
 
 def output(wpx, hpx, filenames, output_folder, px=128):
@@ -46,5 +43,9 @@ def output(wpx, hpx, filenames, output_folder, px=128):
 
 
 if __name__ == '__main__':
+    import tkinter
+    from tkinter.filedialog import askopenfilenames, askdirectory
+    tk = tkinter.Tk()
     output(int(input('长（格）：')), int(input('高（格）：')), askopenfilenames(), askdirectory())
-tk.mainloop()
+    tk.mainloop()
+
