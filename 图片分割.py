@@ -48,4 +48,3 @@ if __name__ == '__main__':
     tk = tkinter.Tk()
     output(int(input('长（格）：')), int(input('高（格）：')), askopenfilenames(), askdirectory())
     tk.mainloop()
-
